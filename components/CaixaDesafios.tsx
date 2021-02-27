@@ -1,9 +1,19 @@
 import { useContext } from 'react';
+import { ContextoContador } from '../contexts/contador';
 import { ContextoDesafios } from '../contexts/desafios';
 import styles from './../styles/Components/CaixaDesafios.module.css';
 
 export function CaixaDesafios(){
-    const {desafioAtivo, resetarDesafio} = useContext(ContextoDesafios);
+    const { desafioAtivo, resetarDesafio, completarDesafio } = useContext(ContextoDesafios);
+    const { resetarContador } = useContext(ContextoContador)
+    function desafioCompleto(){
+        completarDesafio();
+        resetarContador();
+    }
+    function desafioFalhou(){
+        resetarDesafio();
+        resetarContador();
+    }
     return (
         <div className={styles.caixaDesafiosContainer}>
             {desafioAtivo ? 
@@ -15,10 +25,10 @@ export function CaixaDesafios(){
                         <p>{desafioAtivo.description}</p>
                     </main>
                     <footer>
-                        <button type='button' className={styles.botaoDesafioFalhou} onClick={resetarDesafio}>
+                        <button type='button' className={styles.botaoDesafioFalhou} onClick={desafioFalhou}>
                             Falhei
                         </button>
-                        <button type='button' className={styles.botaoDesafioCompleto}>
+                        <button type='button' className={styles.botaoDesafioCompleto} onClick={desafioCompleto}>
                             Completei
                         </button>
                     </footer>

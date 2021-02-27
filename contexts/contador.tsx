@@ -19,7 +19,7 @@ export function ProvedorContador({children}: ProvedorTipoContador){
 
     const [estaAtivo, setEstaAtivo] = useState(false);
     const [estaTerminado, setTerminado] = useState(false);
-    const [tempo, setTempo] = useState(.1 * 60)
+    const [tempo, setTempo] = useState(25 * 60)
     const minutos = Math.floor(tempo / 60);
     const segundos = tempo % 60;
     function iniciarContador(){
@@ -27,8 +27,9 @@ export function ProvedorContador({children}: ProvedorTipoContador){
     }
     function resetarContador(){
         clearTimeout(contadorTimeout);
+        setEstaAtivo(false);
         setTerminado(false);
-        setTempo(.1 * 60);
+        setTempo(25 * 60);
     }
     useEffect(() => {
         if(estaAtivo && tempo > 0){
